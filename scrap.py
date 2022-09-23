@@ -13,6 +13,8 @@ from env import SPREADSHEET_ID, GIDS
 
 
 parser = Parser('./edt.csv')
-
+lessons = parser.parse()
+for lesson in lessons:
+	print(lesson)
 
 # open('./edt.csv', 'wb').write(r.content)

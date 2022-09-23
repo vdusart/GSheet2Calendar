@@ -2,33 +2,23 @@ import csv
 from models.ParsedLesson import ParsedLesson
 
 class Parser:
-	def __init__(self, _csvContent):
-		with open(_csvContent, newline='') as csvfile:
-			rows = csv.reader(csvfile, delimiter=',')
-			linesDuo = []
-			for (i, row) in enumerate(rows):
-				if all(s == '' for s in row):
-					continue
-				if (len(linesDuo) == 1):
-					linesDuo.append(row)
-					self.workWithDuo(linesDuo)
-					linesDuo = []
-				if ("lundi" in row[1]):
-					linesDuo.append(row)
-
-				if i >= 40: break
+	def __init__(self, _fileName):
+		self.fileName = _fileName
 	
-	def workWithDuo(self, linesDuo):
-		dates, content = linesDuo
+	def parseWeek(self, weekLines):
+		dates, content = weekLines
+		lessons = []
 		try:
 			for i in range(len(dates)):
 				if (dates[i] == ""):
 					continue
-				self.parseCourse(dates[i], content[i])
+				newLesson = self.parseDay(dates[i], content[i])
+				lessons.append(newLesson)
 		except:
 			print("An exception occurred during the parsing process")
+		return lessons
 
-	def parseCourse(self, date, description):
+	def parseDay(self, date, description):
 		name = ""
 		day = date.split(" ")[1]
 		start_time = None
@@ -44,5 +34,22 @@ class Parser:
 			start_time = hours[0].split("de")[1]
 			end_time = hours[1]
 
-		parsedLesson = ParsedLesson(name, day, start_time, end_time, company)
-		print(parsedLesson)
+		return ParsedLesson(name, day, start_time, end_time, company)
+
+	def parse(self):
+		lessons = []
+		with open(self.fileName, newline='') as csvfile:
+			rows = csv.reader(csvfile, delimiter=',')
+			weekLines = []
+			for (i, row) in enumerate(rows):
+				if all(s == '' for s in row):
+					continue
+				if (len(weekLines) == 1):
+					weekLines.append(row)
+					lessons += self.parseWeek(weekLines)
+					weekLines = []
+				if ("lundi" in row[1]):
+					weekLines.append(row)
+
+				if i >= 40: break
+		return lessons
