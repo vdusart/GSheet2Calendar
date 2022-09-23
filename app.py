@@ -1,8 +1,18 @@
-import os
-from http.server import HTTPServer, CGIHTTPRequestHandler
+from flask import Flask, redirect, render_template
 
-app = HTTPServer(server_address=('', 8080), RequestHandlerClass=CGIHTTPRequestHandler)
+app = Flask(__name__)
+
+
+@app.route('/')
+def index():
+    return render_template('index.html', link="test")
+
+
+@app.route('/', defaults={ 'path': '' })
+@app.route('/<path:path>')
+def catch_all(path):
+    return redirect('/')
+
 
 if __name__ == '__main__':
-    os.chdir('.')
-    app.serve_forever()
+    app.run(host='localhost', port=8080)
