@@ -1,6 +1,6 @@
 from ics import Event
 
-from Models import Datetime
+from models import Datetime
 
 # minuit - 23h59
 class ParsedLesson:
