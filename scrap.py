@@ -17,5 +17,5 @@ for GID in GIDS:
 	for lesson in lessons:
 		c.events.add(lesson.to_ical_event())
 
-	with open('groupeA.ics', 'w') as f:
+	with open(f'{GID}.ics'.replace(" ", ""), 'w') as f:
 		f.writelines(c.serialize_iter())
