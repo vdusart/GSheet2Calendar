@@ -1,10 +1,7 @@
-import requests
-
-from Parser import Parser
-
 from env import SPREADSHEET_ID, GIDS
 from ics import Calendar
-
+from Parser import Parser
+import requests
 
 for GID in GIDS:
 	url = "https://docs.google.com/spreadsheets/d/{0}/export?format=csv&gid={1}".format(SPREADSHEET_ID, GIDS[GID])
