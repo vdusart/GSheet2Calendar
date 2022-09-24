@@ -1,0 +1,11 @@
+{
+  "apps": [
+    {
+      "app_id": "app_25d12f5e-a839-425f-b3b3-92eef5365a38",
+      "org_id": "orga_3b29314f-573f-48a2-bb58-b1f0f311cd83",
+      "deploy_url": "https://github.com/vdusart/GSheet2Calendar.git",
+      "name": "GSheet2Calendar",
+      "alias": "GSheet2Calendar"
+    }
+  ]
+}
