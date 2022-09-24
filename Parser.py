@@ -13,12 +13,14 @@ class Parser:
 				if (dates[i] == ""):
 					continue
 				newLesson = self.parseDay(dates[i], content[i])
-				lessons.append(newLesson)
+				if newLesson:
+					lessons.append(newLesson)
 		except:
 			print("An exception occurred during the parsing process")
 		return lessons
 
 	def parseDay(self, date, description):
+		if (description == ""): return None
 		name = ""
 		day = date.split(" ")[1]
 		start_time = None
