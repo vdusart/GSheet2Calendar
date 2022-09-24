@@ -1,9 +1,10 @@
 import csv
+from io import StringIO
 from models.ParsedLesson import ParsedLesson
 
 class Parser:
-	def __init__(self, _fileName):
-		self.fileName = _fileName
+	def __init__(self, _csvContent):
+		self.csvContent = StringIO(_csvContent)
 	
 	def parseWeek(self, weekLines):
 		dates, content = weekLines
@@ -40,18 +41,16 @@ class Parser:
 
 	def parse(self):
 		lessons = []
-		with open(self.fileName, newline='') as csvfile:
-			rows = csv.reader(csvfile, delimiter=',')
-			weekLines = []
-			for (i, row) in enumerate(rows):
-				if all(s == '' for s in row):
-					continue
-				if (len(weekLines) == 1):
-					weekLines.append(row)
-					lessons += self.parseWeek(weekLines)
-					weekLines = []
-				if ("lundi" in row[1]):
-					weekLines.append(row)
+		rows = csv.reader(self.csvContent, delimiter=',')
+		weekLines = []
+		for (i, row) in enumerate(rows):
+			if all(s == '' for s in row):
+				continue
+			if (len(weekLines) == 1):
+				weekLines.append(row)
+				lessons += self.parseWeek(weekLines)
+				weekLines = []
+			if ("lundi" in row[1]):
+				weekLines.append(row)
 
-				if i >= 40: break
 		return lessons
