@@ -34,8 +34,9 @@ class Parser:
 			company = content[0]
 			name = content[1].split("(")[0]
 			hours = content[-1].split("à")
-			start_time = hours[0].split("de")[1]
-			end_time = hours[1]
+			if len(hours) == 2:
+				start_time = hours[0].split("de")[1]
+				end_time = hours[1]
 
 		return ParsedLesson(name, day, start_time, end_time, company)
 
