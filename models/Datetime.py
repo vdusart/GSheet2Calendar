@@ -3,7 +3,13 @@ import datetime
 
 class Datetime:
 
-    def __init__(self, year, month, day, hour=None, minute=None):
+    def __init__(self, date, time=None):
+        day, month, year = [int(el) for el in date.split("/")]
+        if time.split("h")[1] != "":
+            hour, minute = [int(el) for el in time.split("h")]
+        else:
+            hour = int(time[:-1])
+            minute = None
         self.dt = datetime.datetime(year, month, day)
         if hour is not None:
             self.dt += datetime.timedelta(hours=hour)
