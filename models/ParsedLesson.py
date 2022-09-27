@@ -3,26 +3,27 @@ from ics import Event
 
 from models.Datetime import Datetime
 
+
 class ParsedLesson:
     def __init__(self, name: str, date: str, start_time: str = None, end_time: str = None, company: str = None):
         self.name = name.strip()
         self.date = date.strip()
-        self.start_time = start_time.strip() if start_time != None else start_time
-        self.end_time = end_time.strip() if end_time != None else end_time
-        self.company = company.strip() if company != None else company
+        self.start_time = start_time.strip() if start_time is not None else start_time
+        self.end_time = end_time.strip() if end_time is not None else end_time
+        self.company = company.strip() if company is not None else company
 
     def to_ical_event(self):
         e = Event()
-        e.name = ("[WARNING] " if self.start_time == None or self.end_time == None else "" )+ self.name
+        e.name = ("[WARNING] " if self.start_time is None or self.end_time is None else "") + self.name
 
-        potentialErrors = "Hours unknown\n" if self.start_time == None else ""
-        e.description = f'[{self.company if self.company != None else "Unknown"}]\n{potentialErrors}Last update:{datetime.now().strftime("%d/%m/%Y %H:%M:%S")}'''
+        potential_errors = "Hours unknown\n" if self.start_time is None else ""
+        e.description = f'[{self.company if self.company is not None else "Unknown"}]\n{potential_errors}Last update:{datetime.now().strftime("%d/%m/%Y %H:%M:%S")}'' '
 
-        valid_start_time = self.start_time if self.start_time != None else "00h01"
-        valid_end_time = self.end_time if self.end_time != None else "23h59"
+        valid_start_time = self.start_time if self.start_time is not None else "00h01"
+        valid_end_time = self.end_time if self.end_time is not None else "23h59"
 
-        e.begin = Datetime(self.date, valid_start_time).toStr()
-        e.end = Datetime(self.date, valid_end_time).toStr()
+        e.begin = Datetime(self.date, valid_start_time).to_str()
+        e.end = Datetime(self.date, valid_end_time).to_str()
 
         return e
 

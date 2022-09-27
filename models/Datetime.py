@@ -1,4 +1,3 @@
-
 class Datetime:
 
     def __init__(self, date, time):
@@ -9,5 +8,5 @@ class Datetime:
             self.hour = time[:-1]
             self.minute = "00"
 
-    def toStr(self):
+    def to_str(self):
         return f'{self.year}-{self.month}-{self.day} {self.hour}:{self.minute}:00'
