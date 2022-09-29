@@ -1,5 +1,6 @@
 .idea/
-venv
+venv/
+__pycache__/
+icals/
 env.py
-__pycache__
 *.ics
