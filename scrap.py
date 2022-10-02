@@ -1,10 +1,22 @@
-from env import SPREADSHEET_ID, GIDS
-from ics import Calendar
-from Parser import Parser
+import shutil
+import os
 import requests
+from ics import Calendar
 
-for GID in GIDS:
-    url = "https://docs.google.com/spreadsheets/d/{0}/export?format=csv&gid={1}".format(SPREADSHEET_ID, GIDS[GID])
+from Parser import Parser
+from models.db import Timetables
+from utils.base import Base, Session, engine
+
+Base.metadata.create_all(engine)
+session = Session()
+
+folder_name = os.environ.get('ICS_FOLDER_NAME')
+shutil.rmtree(f'./{folder_name}/', ignore_errors=True)
+os.mkdir(folder_name)
+
+timetables = session.query(Timetables).all()
+for timetable in timetables:
+    url = f"https://docs.google.com/spreadsheets/d/{timetable.spreadsheet_id}/export?format=csv&gid={timetable.gid}"
     r = requests.get(url)
 
     parser = Parser(r.content.decode("utf-8"))
