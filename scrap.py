@@ -15,4 +15,6 @@ for GID in GIDS:
         c.events.add(lesson.to_ical_event())
 
     with open(f'{GID}.ics'.replace(" ", ""), 'w') as f:
-        f.writelines(c.serialize_iter())
+        lines = c.serialize_iter()
+        lines = lines[:-2] + ["REFRESH-INTERVAL;VALUE=DURATION:P1H\n"] + lines[-1:]
+        f.writelines(lines)
