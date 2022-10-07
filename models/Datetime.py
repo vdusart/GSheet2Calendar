@@ -9,4 +9,4 @@ class Datetime:
             self.minute = "00"
 
     def to_str(self):
-        return f'{self.year}-{self.month}-{self.day} {self.hour}:{self.minute}:00'
+        return f'{self.year}-{self.month}-{self.day} {self.hour}:{self.minute}:00+02:00'

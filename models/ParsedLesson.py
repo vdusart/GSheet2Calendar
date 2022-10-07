@@ -23,6 +23,7 @@ class ParsedLesson:
         valid_end_time = self.end_time if self.end_time is not None else "23h59"
 
         e.begin = Datetime(self.date, valid_start_time).to_str()
+        
         e.end = Datetime(self.date, valid_end_time).to_str()
 
         return e

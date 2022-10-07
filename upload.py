@@ -15,11 +15,13 @@ conn = S3Connection(aws_access_key_id=api_key, aws_secret_access_key=secret_key,
 bucket = conn.get_bucket(os.environ.get('BUCKET_NAME'))
 bucket.set_acl('public-read')
 
-directory = os.environ.get('ICS_FOLDER_NAME')
-calendars = [f for f in os.listdir(directory) if isfile(join(directory, f))]
 
-for calendar in calendars:
-    key = Key(bucket)
-    key.key = calendar
-    key.set_contents_from_filename(f'{directory}/{calendar}')
-    key.set_acl('public-read')
+def upload_files():
+    directory = os.environ.get('ICS_FOLDER_NAME')
+    calendars = [f for f in os.listdir(directory) if isfile(join(directory, f))]
+
+    for calendar in calendars:
+        key = Key(bucket)
+        key.key = calendar
+        key.set_contents_from_filename(f'{directory}/{calendar}')
+        key.set_acl('public-read')
