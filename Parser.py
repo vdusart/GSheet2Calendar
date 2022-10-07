@@ -4,11 +4,11 @@ from models.ParsedLesson import ParsedLesson
 
 
 class Parser:
-    def __init__(self, _csvContent):
-        self.csvContent = StringIO(_csvContent)
+    def __init__(self, _csv_content):
+        self.csvContent = StringIO(_csv_content)
 
-    def parse_week(self, weekLines):
-        dates, content = weekLines
+    def parse_week(self, week_lines):
+        dates, content = week_lines
         lessons = []
         try:
             for i in range(len(dates)):
@@ -17,7 +17,7 @@ class Parser:
                 new_lesson = self.parse_day(dates[i], content[i])
                 if new_lesson:
                     lessons.append(new_lesson)
-        except:
+        except Exception:
             print("An exception occurred during the parsing process")
         return lessons
 
