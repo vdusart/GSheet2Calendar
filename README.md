@@ -1,17 +1,35 @@
 # GSheet2Calendar
-
-## Description
-
-This year, our course schedule comes from a shared document on Google Drive.
-
-To make the accessibility of this calendar easier, we decided to create a script to import our class schedule into a calendar.
-To do this, the script converts the class schedule document to an ics file.
+Parsing a Google sheet to a more user-friendly iCal.
 
 ## Usage
+You can choose between following the instructions we provide [here](https://cytech-calendars.cleverapps.io/) or self-hosting the app yourself.
 
-You can choose between using the ics we provide [here](https://example.com/) or deploying the script by yourself.
+### Self-hosting
+Requirements:
+- A Python 3.10 run environment.
+- A PostgreSQL database.
+- An S3-type object storage.
 
-## Authors
+Setup a python virtual environment.
+```shell
+python3 -m venv venv              # Create virtual environment
+source ./venv/bin/activate        # Activate virtual environment
+pip install -r requirements.txt   # Install dependencies
+```
 
-- DRAESCHER Lucas
-- DUSART Victor
+Set environment variables.
+```shell
+BUCKET_NAME=<S3 bucket to store ICS files>
+POSTGRESQL_ADDON_URI=<connection URI to the PSQL db>
+CELLAR_ADDON_HOST=<S3 host>
+CELLAR_ADDON_KEY_ID=<S3 access key>
+CELLAR_ADDON_KEY_SECRET=<S3 secret access key>
+```
+
+Populate database with a table named `timetables` and columns:
+- `id`: Primary key.
+- `gid`: Group ID, get this from the GSheet URL.
+- `name`: The name given to the generated ICS files.
+- `spreadsheet_id`: Spreadsheet ID, get this from the GSheet URL.
+
+Set up a CRON-job to run `scrap.py` whenever you want.
