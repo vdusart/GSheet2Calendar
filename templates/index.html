@@ -2,10 +2,29 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>It works!</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Cybersecurity Calendars</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap">
 </head>
 <body>
-	<h1>Calendar parser works!</h1>
-	<p>ICS link can be found here: {{ link }}</p>
+	<h1>Cybersecurity calendar</h1>
+	<div class="wrapper">
+	<h2>Group A:</h2>
+	<p>ICS link: <span>{{linkA}}</span></p>
+	<h2>Group B:</h2>
+	<p>ICS link: <span>{{linkB}}</span></p>
+
+	<br>
+	<h2>Usage:</h2>
+	<p>You can copy the ics link and import it inside a calendar (Google Calendar, ...).</p>
+	<p>Source code: <a href="https://github.com/vdusart/GSheet2Calendar">GitHub</a></p>
+	<br>
+	<h2>Authors:</h2>
+	<ul>
+		<li>DRAESCHER Lucas</li>
+		<li>DUSART Victor</li>
+	</ul>
+	</div>
 </body>
 </html>
