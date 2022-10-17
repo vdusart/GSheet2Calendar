@@ -1,0 +1,23 @@
+body {
+	background-color: #fad390;
+	font-family: 'Roboto Mono';
+	color: #0c2461;
+	padding-top: 15px;
+}
+
+.wrapper {
+	padding-left: 50px;
+}
+
+h1 {
+	text-align: center;
+}
+
+h2 {
+	text-decoration: underline;
+}
+
+span {
+	color: #079992;
+	font-style: italic;
+}
