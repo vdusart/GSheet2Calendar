@@ -19,8 +19,8 @@ class ParsedLesson:
         potential_errors = "Hours unknown\n" if self.start_time is None else ""
         e.description = f'[{self.company if self.company is not None else "Unknown"}]\n{potential_errors}Last update:{datetime.now().strftime("%d/%m/%Y %H:%M:%S")}'' '
 
-        valid_start_time = self.start_time if self.start_time is not None else "00h01"
-        valid_end_time = self.end_time if self.end_time is not None else "23h59"
+        valid_start_time = self.start_time if self.start_time is not None else "09h00"
+        valid_end_time = self.end_time if self.end_time is not None else "19h00"
 
         e.begin = Datetime(self.date, valid_start_time).to_str()
         
